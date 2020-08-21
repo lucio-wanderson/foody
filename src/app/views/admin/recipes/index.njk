@@ -1,0 +1,33 @@
+{%extends "admin/layout.njk"%}
+        {%block content%}
+            <h1>Gerenciar receitas</h1>
+
+           <button id="addRecipe" class="add-button">Adicionar receita</button> 
+
+            <div class="content-page admin">
+                {% for recipe in recipes %}
+                    <div class="recipes_list">
+                        
+                            <div class="image-div" style="background: url({{recipe.image}}) no-repeat center center / cover"></div>
+                        <div>
+                            <h4>{{ recipe.title }}</h4>
+                            <p>{{ recipe.author }}</p>
+                            <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+                        </div>
+                    
+                    </div>
+                 {% endfor %}
+
+            </div>
+        {%endblock content%}
+
+    {%block script%}
+        <script>
+
+            const addRecipe = document.getElementById("addRecipe")
+            addRecipe.addEventListener("click", function(){
+                window.location.href = `/admin/recipes/create`
+            })
+
+        </script>
+    {%endblock script%}

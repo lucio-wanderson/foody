@@ -1,0 +1,33 @@
+{%extends "admin/layout.njk"%}
+
+{%block content%}
+    <h1>Gerenciar chefs</h1>
+
+    <button id="addChef" class="add-button">Adicionar chef</button>
+
+    <div class="content-page admin-chef">
+        {% for chef in chefs %}
+            <div class="chef_list">
+
+                <div class="image-div-chef" style="background: url({{chef.avatar_url}}/500x500) no-repeat center center / cover"></div>
+                <div class="chef-info">
+                    <h4>{{ chef.name }}</h4>
+                    <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{%endblock content%}
+
+{%block script%}
+    <script>
+        const addChef = document.getElementById("addChef")
+        addChef.addEventListener("click", function () {
+            window.location.href = `/admin/chefs/create`
+        })
+    </script>
+
+    <script src="/scripts/scripts.js"></script>
+{%endblock script%}

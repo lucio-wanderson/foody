@@ -1,0 +1,39 @@
+{%extends "admin/layout.njk"%}
+
+{%block head%}
+    <title>AdminFoodfy-edit</title>
+{%endblock head%}
+
+{% block content %}
+
+    <div id="top-content">
+        <h2>Edição de receitas</h2>
+    </div>
+
+    <form action="/admin/recipes?_method=PUT" method="POST">
+        <input type="hidden" name="id" value="{{recipe.id}}">
+        {%include "admin/recipes/form-create.njk"%}
+    </form>
+    <form id="form_delete" action="/admin/recipes?_method=DELETE" method="POST">
+
+        <input type="hidden" name="id" value="{{recipe.id}}">
+
+        <button id="button-delete" type="submit">Deletar</button>
+
+    </form>
+    
+{% endblock content %}
+
+{%block script%}
+     <script>
+        const formDelete = document.querySelector('#form_delete')
+
+        formDelete.addEventListener('submit', function(event){
+            const confirmation = window.confirm("Deseja deletar?")
+            
+            if(!confirmation){
+                event.preventDefault()
+            }
+        })
+    </script>
+{%endblock script%}

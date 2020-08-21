@@ -1,0 +1,16 @@
+{%extends "index.njk"%}
+
+{%block content%}
+    <div class="header_card">
+            <a class="button" href="/instructors/create">Adicionar novo</a>
+            <form action="/receitas" method="GET">
+                <input 
+                type="text" 
+                name="filter"
+                placeholder="Filtrar por nome"
+                value="{{filter}}">
+                <button class="button" type="submit">Filtrar</button>
+            </form>
+
+    </div>
+{%endblock content%}

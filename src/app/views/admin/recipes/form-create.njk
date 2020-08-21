@@ -1,0 +1,61 @@
+<div class="item_form">
+    <div>Imagem da receita</div>
+    <div>
+        <input type="url" name="image" placeholder="http://" value="{{recipe.image}}">
+    </div>
+</div>
+
+<div class="item_form">
+    <div>Nome da receita</div>
+    <div>
+        <input type="text" name="title" placeholder="Digite o nome da receita" value="{{recipe.title}}">
+    </div>
+</div>
+
+<div class="item_form">
+    <div>Chef</div>
+    <div>
+        <select name="chef">
+            {%for chef in chefOptions%}
+                <option value="{{chef.id}}" 
+                {% if chef.id == recipe.chef_id %} selected{% endif %}>
+                    {{chef.name}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+
+    <div class="item_form">
+        <div>Ingredientes</div>
+        <div id="ingredients">
+                <div class="ingredient">
+                    <input type="text" name="ingredients[]" placeholder="Ingrediente" value="{{recipe.ingredients}}">
+                </div>
+            </div>
+
+            <a id="addIngredient" onclick="addIngredient()">Adicionar ingrediente</a>
+        </div>
+
+        <div class="item_form">
+            <div>Preparação</div>
+            <div id="steps">
+                <div class="step">
+                    <input type="text" name="preparation[]" placeholder="Passo a passo" value="{{recipe.preparation}}">
+                </div>
+            </div>
+
+            <a id="addStep" onclick="addStep()">Adicionar novo passo</a>
+        </div>
+
+        <div class="item_form">
+            <div>Informações adicionais</div>
+            <div>
+                <textarea name="information" id="text-area" cols="30" rows="10" placeholder="Dicas ou observações" value="{{recipe.information}}"></textarea>
+            </div>
+        </div>
+
+        <button type="submit">SALVAR</button>
+
+        {%block script%}
+            <script src="/form.js"></script>
+        {%endblock script%}

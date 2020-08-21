@@ -1,0 +1,54 @@
+{%extends "layout.njk"%}
+
+{%block head%}
+    <title>Detalhes da receita</title>
+{%endblock head%}
+
+{%block content%}
+
+    <div class="recipe-detail">
+        <div class="recipe-info" id={{recipes.id}}>
+            <div class="img-show" style="background: url({{recipe.image}}) no-repeat center center / cover"></div>
+            <h2>{{ recipe.title }}</h2>
+            <h6>por
+                {{chef.name}}</h6>
+        </div>
+
+        <div class="ingredients">
+            <div class="inline">
+                <h3>Ingredientes</h3>
+                <p class="hide" id="1">ESCONDER</p>
+            </div>
+            <ul class="content" id="ingredientes">
+                {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="prepare-mode">
+            <div class="inline">
+                <h3>Modo de preparo</h3>
+                <p class="hide" id="2">ESCONDER</p>
+            </div>
+            <ul class="content" id="preparation">
+                {%for step in recipe.preparation%}
+                    <li>{{step}}</li>
+                {%endfor%}
+            </ul>
+        </div>
+
+        <div class="adicional-info">
+            <div class="inline">
+                <h3>Informações adicionais</h3>
+                <p class="hide" id="3">ESCONDER</p>
+            </div>
+            <p class="content" id="info">{{ recipe.information }}</p>
+        </div>
+    </div>
+
+{%endblock content%}
+
+{%block script%}
+        <script src="/scripts/detail.js"></script>
+{%endblock script%}

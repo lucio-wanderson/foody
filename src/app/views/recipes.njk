@@ -1,0 +1,24 @@
+{%extends "layout.njk"%}
+
+{%block content%}
+    <div class="all-recipes">
+
+        <div class="recipes"> 
+
+            {% for recipe in recipes %}
+                <div class="link-show" id="{{recipe.id}}">
+                    <div class="recipe" style="background: url({{recipe.image}})no-repeat center center/cover"></div>
+                    <div>
+                        <h4>{{ recipe.title }}</h4>
+                        <p>{{ recipes.chef_name }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{%endblock content%}
+{%block script%}
+    <script src="/scripts.js"></script>
+{%endblock script%}
