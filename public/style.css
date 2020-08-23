@@ -11,6 +11,9 @@ html, body{
     height: 100%;
     width: 100%;
 }
+body{
+    position: relative;
+}
 
 .all{
     min-height: 100%;
@@ -434,6 +437,7 @@ main{
 
 /*ADMIN chef*/
 .content-page.admin-chef, .chef{
+    box-sizing: border-box;
     margin-top: 32px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -623,4 +627,90 @@ input, textarea, select{
     left:0;
     opacity:0;
     cursor: pointer;
+}
+
+/*IMAGE UPLOAD-RECIPE*/
+#upload-recipe-images{
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+}
+
+#upload-recipe-images span{
+    color: #BBB;
+    position: absolute;
+    display: block;
+    top: 42%;
+    left: 42%;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+#upload-recipe-images input{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/*IMAGE-SPACE*/
+#image-space{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 14px;
+}
+#image-preview{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.image{
+    overflow: hidden;
+    position: relative;
+}
+
+.image img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#image-preview .image-view{
+    position: relative;
+}
+
+.image i{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgb(134, 23, 23);
+    background-color: rgba(255, 255, 255, .6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 500%;
+    cursor: pointer;
+    opacity: 0;
+    transition: 200ms;
+}
+.image:hover i{
+    opacity: 1;
 }
