@@ -1,25 +1,23 @@
 const Chef = require("../models/Chef")
 const Recipe = require("../models/Recipe")
 
-const fs = require("fs")
-
 module.exports = {
-    index(req, res) {
-        Recipe.all(function (recipes) {
+    async index(req, res) {
+        await Recipe.all(function (recipes) {
             return res.render("admin/recipes/index", { recipes })
         })
 
     },
 
-    create(req, res) {
-        Recipe.chefSelectOptions(function (options) {
+    async create(req, res) {
+        await Recipe.chefSelectOptions(function (options) {
 
             return res.render("admin/recipes/create", { chefOptions: options })
         })
 
     },
 
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body)
 
         for (key of keys) {
@@ -28,7 +26,7 @@ module.exports = {
             }
         }
 
-        Recipe.create(req.body, function (recipes) {
+        await Recipe.create(req.body, function (recipes) {
 
             return res.redirect(`/admin/recipes/${recipes.id}`)
 
