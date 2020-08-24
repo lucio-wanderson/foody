@@ -12,7 +12,7 @@ module.exports = {
         })
     },
 
-    create(data, callback){
+    create(data){
         const query = `
             INSERT INTO recipes (
                 title,
@@ -34,22 +34,11 @@ module.exports = {
             data.chef
         ]
 
-        db.query(query, values, function(err, results){
-            if(err) throw `DATABASE ERROR ${err}`
-
-            callback(results.rows[0])
-        })
+        return db.query(query, values)
     },
 
-    find(id, callback){
-        db.query(`
-            SELECT * FROM recipes
-            WHERE id = $1 `, [id], function(err, results){
-                if(err) throw `DATABASE ERROR ${err}`
-
-                callback(results.rows[0])
-            }
-        )
+    find(id){
+        db.query(`SELECT * FROM recipes WHERE id = $1 `, [id])
     },
 
     allRecipes(id, callback){
