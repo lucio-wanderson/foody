@@ -8,13 +8,31 @@ for(let recipe of recipes){
     })
 }
 
+chefImage()
+function chefImage(){
+    let fileValue = document.querySelector('#image-input')
+    if(fileValue == null) return
+
+    if(fileValue.getAttribute('value')){
+        fileValue = fileValue.getAttribute('value')
+    } 
+    let input = document.createElement('input')
+    input.setAttribute('value', fileValue) 
+    document.querySelector('#file-image').appendChild(input)
+    
+}
+
 const ImageUpload = {
     input: "",
     preview: document.querySelector('#image-preview'),
-    limit: 1,
+    limit: 5,
     files: [],
     chef(event){
         const {files: fileList} = event.target
+
+        ImageUpload.input = event.target
+        ImageUpload.limit = 1
+       
 
         Array.from(fileList).forEach(file => {
             ImageUpload.files.push(file)
@@ -23,10 +41,14 @@ const ImageUpload = {
     
             reader.onload = () =>{
                 const fileImage = document.querySelector('#file-image')
-                const input = document.createElement('input')
+                let input = document.createElement('input')
+                if(fileImage.childNodes.length > 1){
+                    input = document.querySelector('#file-image input')
+                } 
+
                 input.value = String(reader.result)
     
-                ImageUpload.fileImage.appendChild(input)
+                fileImage.appendChild(input)
             }
 
             reader.readAsDataURL(file)
@@ -37,20 +59,13 @@ const ImageUpload = {
     recipe(event){
         const {files: fileList} = event.target
         ImageUpload.input = event.target
-        ImageUpload.limit = 5
         
-        if(ImageUpload.maxUpload(event, ImageUpload.limit)) return 
-
-        if(ImageUpload.files.length + 1 > ImageUpload.limit){
-            window.alert("Você deve escolher no máximo 5 imagens")
-            event.preventDefault()
-            return
-        }
+        if(ImageUpload.maxUpload(event)) return 
 
         Array.from(fileList).forEach(file => {
             ImageUpload.files.push(file)
 
-            const reader = new FileReader
+            const reader = new FileReader()
 
             reader.onload = () => {
                 const image = new Image()
@@ -76,11 +91,26 @@ const ImageUpload = {
 
         return container
     },
-    maxUpload(event, limit){
-        const {files: fileList} = event.target
+    maxUpload(event){
+        const {limit, input, preview} = ImageUpload
+        const {files: fileList} = input
 
         if(fileList.length > limit){
-            alert("Você só pode escolher 5 imagens")
+            window.alert("Você só pode escolher 5 imagens")
+            event.preventDefault()
+            return true
+        }
+
+        const imageDiv = []
+        preview.childNodes.forEach(item => {
+            if(item.classList && item.classList.value == "image"){
+                imageDiv.push(item)
+            }
+        })
+
+        const totalImages = fileList.length + imageDiv.length
+        if(totalImages > limit){
+            window.alert("Você só pode escolher 5 imagens")
             event.preventDefault()
             return true
         }
@@ -88,7 +118,7 @@ const ImageUpload = {
         return false
     },
     getFiles(){
-        const dataTransfer = new DataTransfer() || new ClipboardEvent("").clipboardData
+        const dataTransfer = new DataTransfer() || new ClipboardEvent("")
 
         ImageUpload.files.forEach(file => dataTransfer.items.add(file))
 
@@ -100,7 +130,7 @@ const ImageUpload = {
         button.innerHTML = "close"
         return button
     },
-    removeImage(evente){
+    removeImage(event){
         const imageDiv = event.target.parentNode
         const imageArray = Array.from(ImageUpload.preview.children)
         const index = imageArray.indexOf(imageDiv)
@@ -121,6 +151,26 @@ const ImageUpload = {
             }
         }
 
-        photoDiv.remove()
+        imageDiv.remove()
     }
+}
+
+deleteChef()
+function deleteChef(){
+    const chefDelete = document.querySelector('#delete-chef')
+    
+    if(chefDelete == null) return
+
+    chefDelete.addEventListener('click', function(event){
+        const confirmation = window.confirm("Deseja deletar?")
+
+        const totalRecipes = document.querySelector('#total_recipes')
+        console.log(totalRecipes)
+        if (!confirmation) {
+            event.preventDefault()
+        } else if (Number(totalRecipes) > 0) {
+            window.alert("Esse Chef não pode ser excuído, pois existem receitas registradas em sua autoria, por favor, exclua todas as receitas do mesmo, depois tente excluí-lo novemente")
+            event.preventDefault()
+        }
+    })
 }

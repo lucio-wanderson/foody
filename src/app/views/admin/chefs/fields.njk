@@ -1,0 +1,28 @@
+<div class="item-form">
+            <div>Nome do chef</div>
+            <div>
+                <input type="text"
+                    name="name"
+                    value="{{chef.name_chef}}"
+                    placeholder="Digite o nome do chef">
+            </div>
+        </div>
+
+        <div class="item-form" id="file-image">
+        </div>
+
+        <div class="item-form">
+            <div>Avatar</div>
+            <div id=image-upload>
+                <input type="file" 
+                    id="image-input"
+                    name="image"
+                    multiple="multiple"
+                    accept="image/*"
+                    value="{{chef.name_file}}"
+                    onchange="ImageUpload.chef(event)">
+
+                <p id="send-avatar">Enviar avatar</p>
+                
+            </div>
+        </div>

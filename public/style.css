@@ -453,6 +453,7 @@ main{
 
 .chef_list .image-div-chef{
     border-radius: 50%;
+    border: 1px solid #BBB;
 }
 
 .chef-info a, .chef-info h4{
@@ -691,7 +692,7 @@ input, textarea, select{
     object-fit: cover;
 }
 
-#image-preview .image-view{
+#image-preview .image{
     position: relative;
 }
 

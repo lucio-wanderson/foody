@@ -25,8 +25,8 @@ routes.get("/admin/chefs", admin.chefIndex)
 routes.get("/admin/chefs/create", admin.chefCreate)
 routes.get("/admin/chefs/:id", admin.chefShow)
 routes.get("/admin/chefs/:id/edit", admin.chefEdit)
-routes.post("/admin/chefs", multer.array("images", 1),admin.chefPost) 
-routes.put("/admin/chefs", multer.array("images", 1),admin.chefUpdate)
+routes.post("/admin/chefs", multer.array("image", 1),admin.chefPost) 
+routes.put("/admin/chefs", multer.array("image", 1),admin.chefUpdate)
 routes.delete("/admin/chefs", admin.chefDelete)
 
 

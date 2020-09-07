@@ -2,10 +2,10 @@ const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
 
 module.exports = {
-    home(req, res) {
-        Recipe.all(function (recipes) {
-            return res.render("index", { recipes })
-        })
+    async home(req, res) {
+        const results = await Recipe.all()
+        const recipes = results.rows
+        return res.render("index", { recipes })
     },
 
     index(req, res) {

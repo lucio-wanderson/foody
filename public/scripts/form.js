@@ -11,9 +11,15 @@ function addIngredient(){
     ingredients.appendChild(newField)
   }
 
-function addStep(){
+function addStep(){ 
     const steps = document.querySelector("#steps")
-    const fieldStep = document.querySelectorAll(".step")
+    let fieldStep = document.querySelectorAll(".step")
+    if(!fieldStep){
+      fieldStep = document.createElement('div')
+      let input = document.createElement('input')
+      fieldStep.classList.add('step')
+      fieldStep.appendChild(input)
+    }
     console.log(fieldStep)
     const newFieldStep = fieldStep[fieldStep.length -1].cloneNode(true)
 

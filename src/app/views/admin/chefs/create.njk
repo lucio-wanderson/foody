@@ -9,33 +9,9 @@
         <h1>Criação de chefs</h1>
     </div>
 
-    <form action="/admin/chefs" method="POST">
+    <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
 
-        <div class="item-form">
-            <div>Nome do chef</div>
-            <div>
-                <input type="text"
-                    name="name"
-                    placeholder="Digite o nome do chef">
-            </div>
-        </div>
-
-        <div class="item-form" id="file-image"></div>
-
-        <div class="item-form">
-            <div>Avatar</div>
-            <div id=image-upload>
-                <input type="file" 
-                    id="image-input"
-                    name="photo"
-                    multiple="multiple"
-                    accept="image/*"
-                    onchange="ImageUpload.chef(event)">
-
-                <p id="send-avatar">Enviar avatar</p>
-                
-            </div>
-        </div>
+        {%include "admin/chefs/fields.njk"%}
 
 
         <button class="editButton" type="submit">SALVAR</button>

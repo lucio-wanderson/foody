@@ -1,16 +1,16 @@
 {%extends "admin/layout.njk"%}
 
 {%block content%}
-    <h1>Chef: {{chef.name}}</h1>
+    <h1>Chef: {{chef.name_chef}}</h1>
 
     <button id="editChef" class="add-button">Editar chef</button>
 
     <div class="chef-show">
-        <div class="chef-image" style="background: url({{chef.avatar_url}}/500x500) no-repeat center center / cover">
+        <div class="chef-image" style="background: url({{chef.src}}) no-repeat center center / cover">
         </div>
         <div>
-            <h2>{{chef.name}}</h2>
-            <p>{{total_recipes}} receitas</p>
+            <h2>{{chef.name_chef}}</h2>
+            <p>{{chef.total_recipes}} receitas</p>
         </div>
     </div>
 
@@ -19,8 +19,8 @@
         <div class="recipes"> 
 
             {% for recipe in recipes %}
-                <div class="link-show" id="{{recipe.id}}">
-                    <div class="recipe" style="background: url({{recipe.image}})no-repeat center center/cover"></div>
+                <div class="link-show" id="{{recipe.id_recipe}}">
+                    <div class="recipe" style="background: url({{recipe.src}})no-repeat center center/cover"></div>
                     <div>
                         <h4>{{ recipe.title }}</h4>
                     </div>
@@ -35,7 +35,7 @@
     <script>
         const editChef = document.getElementById("editChef")
         editChef.addEventListener("click", function () {
-            window.location.href = `/admin/chefs/{{chef.id}}/edit`
+            window.location.href = `/admin/chefs/{{chef.id_chef}}/edit`
         })
     </script>
 {%endblock script%}

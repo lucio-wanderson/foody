@@ -10,24 +10,21 @@
         <h2>Edição de receitas</h2>
     </div>
 
-    <form action="/admin/recipes?_method=PUT" method="POST">
-        <input type="hidden" name="id" value="{{recipe.id}}">
+    <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value={{recipe.id}}>
 
         {%include "admin/recipes/fields.njk"%}
     </form>
     
     <form id="form_delete" action="/admin/recipes?_method=DELETE" method="POST">
 
-        <input type="hidden" name="id" value="{{recipe.id}}">
+        <input type="hidden" name="id" value={{recipe.id}}>
 
         <button id="button-delete" type="submit">Deletar</button>
 
     </form>
-    
-{% endblock content %}
 
-{%block script%}
-     <script>
+    <script>
         const formDelete = document.querySelector('#form_delete')
 
         formDelete.addEventListener('submit', function(event){
@@ -38,4 +35,5 @@
             }
         })
     </script>
-{%endblock script%}
+    
+{% endblock content %}

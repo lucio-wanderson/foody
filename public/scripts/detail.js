@@ -40,6 +40,6 @@ hide3.addEventListener("click", function () {
 })
 
 function editPage(){
-    const id = document.querySelector("div#top-show button.add-button").getAttribute("id")
+    const id = document.querySelector("div#top-show button.recipe-edit").getAttribute("id")
     window.location.href = `/admin/recipes/${id}/edit`
 }

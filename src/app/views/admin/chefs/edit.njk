@@ -9,65 +9,23 @@
         <h1>Edição de chefs</h1>
     </div>
 
-    <form action="/admin/chefs?_method=PUT" method="POST">
+    <form action="/admin/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
 
-        <div class="item_form">
-            <div>Nome do chef</div>
-            <div>
-                <input type="text" name="name" value={{chef.name}}>
-            </div>
-        </div>
+        {%include "admin/chefs/fields.njk"%}
 
-        <div class="item_form">
-            <div>Avatar</div>
-            <div>
-                <input type="text" name="name" value={{chef.name}}>
-            </div>
-        </div>
+        <input type="hidden" name="id_chef" value="{{chef.id_chef}}">
+        <input type="hidden" name="file_id" value="{{chef.file_id}}">
 
-        <div class="item-form">
-            <div>Avatar</div>
-            <div id=image-upload>
-                <input type="file" 
-                    id="image-input"
-                    name="photo"
-                    multiple="multiple"
-                    accept="image/*"
-                    onchange="ImageChefUpload()">
-
-                <p id="send-avatar">Enviar avatar</p>
-            </div>
-        </div>
-
-        <input type="hidden" name="id" value="{{chef.id}}">
 
         <button class="editButton" type="submit">SALVAR</button>
 
     </form>
 
     <form id="form_delete" action="/admin/chefs?_method=DELETE" method="POST">
-        <input type="hidden" name="id" value="{{chef.id}}">
+        <input type="hidden" name="id_chef" value="{{chef.id_chef}}">
+        <input type="hidden" name="file_id" value="{{chef.file_id}}">
         <input type="hidden" id="total_recipes" name="total_recipes" value={{chef.total_recipes}}>
         <button id="delete-chef" class="delete-chef" type="submit">DELETAR</button>
     </form>
 
 {%endblock content%}
-
-{%block script%}
-    <script>
-        const formDelete = document.querySelector('#form_delete')
-        const totalRecipes = document.querySelector('#total_recipes')
-        console.log(totalRecipes.getAttribute('value'))
-
-        formDelete.addEventListener('submit', function (event) {
-            const confirmation = window.confirm("Deseja deletar?")
-            if (!confirmation) {
-                event.preventDefault()
-            } else if (Number(totalRecipes) > 0) {
-                window.alert("Esse Chef não pode ser excuído, pois existem receitas registradas em sua autoria, por favor, exclua todas as receitas do mesmo, depois tente excluí-lo novemente")
-                event.preventDefault()
-            }
-
-        })
-    </script>
-{%endblock script%}
