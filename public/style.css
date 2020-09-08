@@ -317,15 +317,42 @@ h4.title-recipe{
 }
 
 .img-show{
-    margin: auto;
+    box-sizing: border-box;
     width: 940px;
     height: 280px;
-    border-radius: 15px;
+    border-radius: 8px;
+    transition: 200ms;
+}
+
+#images-view{
+    height: 84px;
+    box-sizing: border-box;
+    display: flex;
+    width: 50%;
+    position: absolute;
+    right: 225px;
+    justify-content: flex-end;
+}
+
+.view-image-recipe{
+    height: 80px;
+    width: 80px;
+    margin-top: 4px;
+    margin-right: 0;
+    margin-left: 4px;
+    border-radius: 6px;
+    opacity: .6;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.view-image-recipe:hover{
+    opacity: 1;
 }
 
 .recipe-info h2{
     font-size: 32px;
-    margin-top: 3.9%;
+    margin-top: 80px;
     padding: 2px;
 }
 
@@ -689,6 +716,7 @@ input, textarea, select{
 .image img{
     width: 150px;
     height: 150px;
+    border-radius: 4px;
     object-fit: cover;
 }
 

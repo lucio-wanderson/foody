@@ -17,8 +17,8 @@
             <div id="image-preview">
                 {%if files%}
                     {%for image in files%}
-                        <div class="image" id={{image.id}}>
-                            <img src="{{image.src}}" alt="{{image.name}}">
+                        <div class="image" id={{image.id_file}}>
+                            <img src="{{image.src}}" alt="{{image.name_file}}">
                             <i class="material-icons"
                             onclick="ImageUpload.removeOldImage(event)">close</i>
                         </div>
@@ -43,9 +43,9 @@
     <div>
         <select name="chef">
             {%for chef in chefOptions%}
-                <option value="{{chef.id}}" 
+                <option value="{{chef.id_chef}}" 
                 {% if chef.id == recipe.chef_id %} selected{% endif %}>
-                    {{chef.name}}</option>
+                    {{chef.name_chef}}</option>
                 {%endfor%}
             </select>
         </div>

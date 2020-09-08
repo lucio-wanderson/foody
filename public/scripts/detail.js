@@ -43,3 +43,12 @@ function editPage(){
     const id = document.querySelector("div#top-show button.recipe-edit").getAttribute("id")
     window.location.href = `/admin/recipes/${id}/edit`
 }
+
+//PAGE ADMIN/RECIPE/SHOW
+let imageView = document.querySelectorAll('.view-image-recipe')
+for(let image of imageView){
+    image.addEventListener('click', function(){
+        let imageShow = (document.querySelector('.img-show'))
+        imageShow.style = image.getAttribute('style')
+    })
+}

@@ -8,7 +8,7 @@ module.exports = {
         let results = await Recipe.all()
         const recipes = results.rows
 
-        return res.render("admin/recipes/index", { recipes})
+        return res.render("admin/recipes/index", {recipes})
     },
 
     async create(req, res) {
@@ -34,7 +34,7 @@ module.exports = {
         let results = await Recipe.create(req.body)
         const recipe = results.rows
         
-        const recipeId = recipe[0].id
+        const recipeId = recipe[0].id_recipe
         
         let filesPromise = req.files.map(async (file) => await File.create({...file }))
         let files = await Promise.all(filesPromise)
@@ -42,9 +42,9 @@ module.exports = {
 
         let fileIds = []
         for(let size = 0; size < files.length; size ++){
-            fileIds.push(files[size][0].id)
+            fileIds.push(files[size][0].id_file)
         }
-        filesPromise = fileIds.map(async id => await RecipeFile.create(recipeId, id))
+        filesPromise = fileIds.map(async id_file=> await RecipeFile.create(recipeId, id_file))
         
         return res.redirect(`/admin/recipes/${recipeId}`)
     },
@@ -54,15 +54,15 @@ module.exports = {
         const recipe = results.rows[0]
         if(!recipe) return res.send("Sem receita")
 
-        results = await RecipeFile.findFile(recipe.id)
-        let file = results.rows.map(result => ({
+        results = await RecipeFile.findFile(recipe.id_recipe)
+        let files = results.rows.map(result => ({
             ...result,
             src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
         }))
         
-        file = file[0]
+        file = files[0]
         
-        return res.render(`admin/recipes/show`, {recipe, file})
+        return res.render(`admin/recipes/show`, {recipe, files, file})
     },
 
     async edit(req, res) {
@@ -74,7 +74,7 @@ module.exports = {
         results = await Recipe.chefSelectOptions()
         let chefOptions = results.rows
 
-        results = await RecipeFile.findFile(recipe.id)
+        results = await RecipeFile.findFile(recipe.id_recipe)
         let files = results.rows.map(result => ({
             ...result,
             src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
@@ -103,12 +103,15 @@ module.exports = {
             })
 
             files = await Promise.all(newfilesPromise)
+            console.log(files)
             files = await Promise.all(files.map(file => file.rows))
+            console.log('1',files)
         }
         let fileIds = []
         for(let size = 0; size < files.length; size ++){
-            fileIds.push(files[size][0].id)
+            fileIds.push(files[size][0].id_file)
         }
+        console.log(fileIds)
         filesPromise = fileIds.map(async id => await RecipeFile.create(recipeId, id))
 
         if(req.body.removed_files){

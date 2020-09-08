@@ -11,7 +11,9 @@ for(let recipe of recipes){
 chefImage()
 function chefImage(){
     let fileValue = document.querySelector('#image-input')
+    
     if(fileValue == null) return
+    //if (typeof fileValue.value === 'string') console.log('é sim')
 
     if(fileValue.getAttribute('value')){
         fileValue = fileValue.getAttribute('value')

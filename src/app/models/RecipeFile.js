@@ -27,12 +27,12 @@ module.exports = {
     },
     find(id){
         return db.query(`
-            SELECT files.*, recipes.*, files.id AS id_file,
-            (SELECT chefs.name AS chef_name FROM chefs WHERE chefs.id = recipes.chef_id)
+            SELECT files.*, recipes.*, files.id_file AS id_file,
+            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
             FROM recipe_files
-            LEFT JOIN files ON (files.id = recipe_files.file_id)
-            LEFT JOIN recipes ON (recipes.id = recipe_files.recipe_id)   
-            WHERE recipes.id = $1
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)   
+            WHERE recipes.id_recipe = $1
         `, [id])
     },
     findChefRecipe(id){
@@ -46,10 +46,10 @@ module.exports = {
             WHERE recipes.chef_id = $1
         `)
     },
-    findFiles(id){
+    findFile(id){
         return db.query(`
             SELECT files.* FROM recipe_files
-            LEFT JOIN files ON files.id = recipe_files.file_id
+            LEFT JOIN files ON files.id_file = recipe_files.file_id
             WHERE recipe_files.recipe_id = $1
             `, [id])
     }

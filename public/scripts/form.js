@@ -1,7 +1,6 @@
 function addIngredient(){
     const ingredients = document.querySelector("#ingredients")
     const fieldContainer = document.querySelectorAll(".ingredient")
-    console.log(fieldContainer)
   
     const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true)
   
@@ -14,13 +13,14 @@ function addIngredient(){
 function addStep(){ 
     const steps = document.querySelector("#steps")
     let fieldStep = document.querySelectorAll(".step")
+
     if(!fieldStep){
       fieldStep = document.createElement('div')
       let input = document.createElement('input')
       fieldStep.classList.add('step')
       fieldStep.appendChild(input)
     }
-    console.log(fieldStep)
+    
     const newFieldStep = fieldStep[fieldStep.length -1].cloneNode(true)
 
     if(newFieldStep.children[0].value == "") return false

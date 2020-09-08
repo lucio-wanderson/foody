@@ -4,12 +4,17 @@
 {%block content%}
     <div id="top-show">
         <h1>Receita: {{recipe.title}}</h1>
-        <button id="{{recipe.id}}" class="add-button recipe-edit" onclick="editPage()">Editar receita</button>
+        <button id={{recipe.id_recipe}} class="add-button recipe-edit" onclick="editPage()">Editar receita</button>
     </div>
 
     <div class="recipe-detail">
         <div class="recipe-info">
             <div class="img-show" style="background: url({{file.src}}) no-repeat center center / cover"></div>
+            <div id="images-view">
+                {%for file in files%}
+                <div class="view-image-recipe" style="background: url({{file.src}}) no-repeat center center / cover"></div>
+            {%endfor%}
+            </div>
             <h2>{{ recipe.title }}</h2>
             <h6>por {{ recipe.chef_name }}</h6>
         </div>
