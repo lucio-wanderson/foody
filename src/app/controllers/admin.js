@@ -103,15 +103,12 @@ module.exports = {
             })
 
             files = await Promise.all(newfilesPromise)
-            console.log(files)
             files = await Promise.all(files.map(file => file.rows))
-            console.log('1',files)
         }
         let fileIds = []
         for(let size = 0; size < files.length; size ++){
             fileIds.push(files[size][0].id_file)
         }
-        console.log(fileIds)
         filesPromise = fileIds.map(async id => await RecipeFile.create(recipeId, id))
 
         if(req.body.removed_files){
@@ -135,11 +132,24 @@ module.exports = {
 
     },
 
-    delete(req, res) {
-        Recipe.delete(req.body.id, function () {
-            return res.redirect("/admin/recipes")
-        }) 
+    async delete(req, res) {
+        const recipeId = req.body.id_recipe
+        
+        let results = await RecipeFile.findFileId(recipeId)
+        const resultIds = results.rows
+        console.log(resultIds.length)
+        let idFiles = []
+        for(let size = 0; size < resultIds.length; size ++){
+            idFiles.push(resultIds[size].id_file)
+        }
+        
+        const deleteFiles = idFiles.map(id => File.delete(id))
 
+        await Promise.all(deleteFiles)
+
+        await Recipe.delete(recipeId)
+        
+        return res.redirect("/admin/recipes")
     },
 
     async chefIndex(req, res) {

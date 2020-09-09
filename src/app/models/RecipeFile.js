@@ -25,6 +25,7 @@ module.exports = {
             LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)   
         `)
     },
+
     find(id){
         return db.query(`
             SELECT files.*, recipes.*, files.id_file AS id_file,
@@ -35,6 +36,7 @@ module.exports = {
             WHERE recipes.id_recipe = $1
         `, [id])
     },
+
     findChefRecipe(id){
         return db.query(`
             SELECT 
@@ -46,11 +48,31 @@ module.exports = {
             WHERE recipes.chef_id = $1
         `)
     },
+
     findFile(id){
         return db.query(`
             SELECT files.* FROM recipe_files
             LEFT JOIN files ON files.id_file = recipe_files.file_id
             WHERE recipe_files.recipe_id = $1
             `, [id])
+    },
+
+    findFileId(id){
+        return db.query(`
+            SELECT id_file FROM recipe_files
+            LEFT JOIN files ON files.id_file = recipe_files.file_id
+            WHERE recipe_files.recipe_id = $1 
+        `, [id])
+    },
+
+    async delete(id){
+        let results = await db.query(`
+            SELECT files.*, recipes.*
+            FROM recipe_files
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)
+            WHERE recipe_files.recipe_id = $1`, [id])
+        results = results.rows
+        console.log(results)
     }
 }
