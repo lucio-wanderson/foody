@@ -2,28 +2,31 @@ const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
 
 module.exports = {
-    async home(req, res) {
+    async home(req, res){
         const results = await Recipe.all()
         const recipes = results.rows
         return res.render("index", { recipes })
-    },
+    },  
 
-    index(req, res) {
+    async index(req, res) {
         const { filter } = req.query
 
         if (filter) {
-            Recipe.findBy(filter, function (recipes) {
-                return res.render("recipes", { recipes })
-            })
+            const results = await Recipe.findBy(filter)
+            const recipes = results.rows
+
+            return res.render("recipes", { recipes })
+
         } else {
-            Recipe.all(function (recipes) {
-                return res.render("recipes", { recipes })
-            })
+            const results = await Recipe.all()
+            const recipe = results.rows
+
+            return res.render("recipes", { recipe })
         }
     },
 
-    show(req, res) {
-        Recipe.find(req.params.id, function (recipe) {
+    async show(req, res) {
+        await Recipe.find(req.params.id, function (recipe) {
             if (!recipe) return res.send("Receita não encontrado")
 
             recipe.ingredients = recipe.ingredients.split(',')
@@ -42,10 +45,10 @@ module.exports = {
         return res.render("about")
     },
 
-    chef(req, res) {
-        Chef.all(function (chefs) {
-            return res.render("chefs", { chefs })
-        })
+    async chef(req, res) {
+        const results = await Chef.all()
+        const chefs = results.rows
 
+        return res.render("chefs", { chefs })
     }
 }

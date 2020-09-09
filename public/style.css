@@ -224,12 +224,14 @@ h4.title-recipe{
 /*SOBRE*/
 
 .about-foodfy h2, h3, p{
+    margin-left: 0;
+    padding-left: 15px;
+    box-sizing: border-box;
     margin-bottom: 30px;
 }
 
 .about-foodfy h4{
-    margin-left: 0;
-    padding-left: 0;
+    padding-left: 15px;
     margin-bottom: 30px;
 }
 
