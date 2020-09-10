@@ -19,10 +19,12 @@ module.exports = {
 
     all(){
         return db.query(`
-            SELECT files.*, recipes.*,
-            FROM recipe_files
-            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
-            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)   
+            SELECT * FROM recipes,
+            (SELECT files.*
+            from recipe_files
+            INNER JOIN files on files.id_file = recipe_files.file_id
+            INNER JOIN recipes on recipes.id_recipe = recipe_files.recipe_id
+            WHERE recipe_files.recipe_id= recipes.id_recipe LIMIT 1) AS file   
         `)
     },
 
@@ -54,6 +56,8 @@ module.exports = {
             SELECT files.* FROM recipe_files
             LEFT JOIN files ON files.id_file = recipe_files.file_id
             WHERE recipe_files.recipe_id = $1
+            GROUP BY recipes.id_recipe,
+                files.id_file
             `, [id])
     },
 

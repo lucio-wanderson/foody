@@ -1,3 +1,13 @@
+const currentPage = location.pathname
+const menuItems = document.querySelectorAll(".header_menu a")
+console.log(menuItems)
+
+for(item of menuItems){
+    if(currentPage.includes(item.getAttribute("href"))){
+        item.classList.add("active")
+    }
+}
+
 const recipes = document.querySelectorAll(".link-show")
 
 for(let recipe of recipes){
@@ -11,16 +21,18 @@ for(let recipe of recipes){
 chefImage()
 function chefImage(){
     let fileValue = document.querySelector('#image-input')
-    
     if(fileValue == null) return
-    //if (typeof fileValue.value === 'string') console.log('é sim')
+    
+    if(fileValue.value === undefined) return
 
     if(fileValue.getAttribute('value')){
         fileValue = fileValue.getAttribute('value')
+        
+        let input = document.createElement('input')
+        input.setAttribute('value', fileValue) 
+        document.querySelector('#file-image').appendChild(input)
     } 
-    let input = document.createElement('input')
-    input.setAttribute('value', fileValue) 
-    document.querySelector('#file-image').appendChild(input)
+
     
 }
 

@@ -419,6 +419,10 @@ header .header_menu a:hover{
     color: white;
 }
 
+header .header_menu a.active{
+    color: white;
+}
+
 main{
     margin-top: 20px;
     width: 1000px;

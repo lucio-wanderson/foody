@@ -5,8 +5,13 @@ const RecipeFile = require("../models/RecipeFile")
 
 module.exports = {
     async index(req, res) {
-        let results = await Recipe.all()
-        const recipes = results.rows
+        let results = await RecipeFile.all()
+        
+        let recipes = results.rows.map(result => ({
+            ...result,
+            src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+        }))
+        
 
         return res.render("admin/recipes/index", {recipes})
     },
@@ -50,6 +55,7 @@ module.exports = {
     },
 
     async show(req, res) {
+        console.log(req.params.id)
         let results = await RecipeFile.find(req.params.id)
         const recipe = results.rows[0]
         if(!recipe) return res.send("Sem receita")
@@ -189,7 +195,7 @@ module.exports = {
 
         const chefId = await resultChef.rows[0].id_chef
 
-        return res.redirect(`/admin/recipes`)
+        return res.redirect(`/admin/recipes/${chefId}`)
     },
 
     async chefShow(req, res) {
