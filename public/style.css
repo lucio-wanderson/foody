@@ -225,13 +225,12 @@ h4.title-recipe{
 
 .about-foodfy h2, h3, p{
     margin-left: 0;
-    padding-left: 15px;
+    padding-left: 0;
     box-sizing: border-box;
     margin-bottom: 30px;
 }
 
 .about-foodfy h4{
-    padding-left: 15px;
     margin-bottom: 30px;
 }
 
@@ -239,6 +238,9 @@ h4.title-recipe{
     color: #444444;
 }
 
+#about{
+    margin-left: 15px;
+}
 /*RECEITAS*/
 .modal-view{
     width: 100%;
@@ -316,14 +318,19 @@ h4.title-recipe{
 .recipe-info{
     text-align: center;
     overflow: hidden; 
+    padding-left: 15px;
 }
 
 .img-show{
     box-sizing: border-box;
-    width: 940px;
+    width: 970px;
     height: 280px;
     border-radius: 8px;
     transition: 200ms;
+}
+
+.small-image{
+    margin-right: -35px;
 }
 
 #images-view{
@@ -378,9 +385,10 @@ p.hide{
     cursor:  pointer;
 }
 
-.ingredients ul{
+#chefs, .chefs h1{
     margin-left: 15px;
 }
+
 
 /* HIDDEN */
 .content.hidden{

@@ -11,9 +11,22 @@ module.exports = {
             ...result,
             src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
         }))
-        
 
-        return res.render("admin/recipes/index", {recipes})
+        let filteredRecipes = []
+        let recipeIds = []
+
+        for(recipe of recipes){
+            recipeIds.push(recipe.id_recipe)
+        }
+        recipeIds = [...new Set(recipeIds)]
+
+        for(let counter = 0; counter < recipeIds.length; counter ++){
+            if(recipeIds.includes(recipes[counter].id_recipe)){
+                filteredRecipes.push(recipes[counter])
+            }
+        }
+
+        return res.render("admin/recipes/index", {recipes: filteredRecipes})
     },
 
     async create(req, res) {
@@ -55,9 +68,9 @@ module.exports = {
     },
 
     async show(req, res) {
-        console.log(req.params.id)
-        let results = await RecipeFile.find(req.params.id)
+        let results = await Recipe.find(req.params.id)
         const recipe = results.rows[0]
+        console.log(recipe)
         if(!recipe) return res.send("Sem receita")
 
         results = await RecipeFile.findFile(recipe.id_recipe)
@@ -92,9 +105,8 @@ module.exports = {
 
     async update(req, res) {
         const keys = Object.keys(req.body)
-        req.body.id = Number(req.body.id)
+        req.body.id_recipe = Number(req.body.id_recipe)
         req.body.chef = Number(req.body.chef)
-
         for (let key of keys) {
             if (req.body[key] == "" && key != "information" && key != "removed_files") {
                 return res.send("Por favor, preencha todos os campos")
@@ -103,6 +115,8 @@ module.exports = {
 
         let files = []
         let newfilesPromise = []
+        let fileIds = []
+
         if(req.files.length != 0){
             newFilesPormise = req.files.map(file =>{
                 File.create({...file})
@@ -110,15 +124,14 @@ module.exports = {
 
             files = await Promise.all(newfilesPromise)
             files = await Promise.all(files.map(file => file.rows))
+
+            for(let size = 0; size < files.length; size ++){
+                fileIds.push(files[size][0].id_file)
+            }
+            filesPromise = fileIds.map(async id => await RecipeFile.create(recipeId, id))
         }
-        let fileIds = []
-        for(let size = 0; size < files.length; size ++){
-            fileIds.push(files[size][0].id_file)
-        }
-        filesPromise = fileIds.map(async id => await RecipeFile.create(recipeId, id))
 
         if(req.body.removed_files){
-            console.log(req.body.removed_files)
             const removedFiles = req.body.removed_files.split(",")
             const lastIndex = removedFiles.length - 1 
             removedFiles.splice(lastIndex, 1)
@@ -133,9 +146,7 @@ module.exports = {
 
         await Recipe.update(req.body)
         
-        return res.redirect(`/admin/recipes/${req.body.id}`)
-        
-
+        return res.redirect(`/admin/recipes/${req.body.id_recipe}`)
     },
 
     async delete(req, res) {

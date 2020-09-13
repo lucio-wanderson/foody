@@ -6,11 +6,11 @@
         <div class="recipes"> 
 
             {% for recipe in recipes %}
-                <div class="link-show" id="{{recipe.id}}">
-                    <div class="recipe" style="background: url({{recipe.image}})no-repeat center center/cover"></div>
+                <div class="link-show" id="{{recipe.id_recipe}}">
+                    <div class="recipe" style="background: url({{recipe.src}})no-repeat center center/cover"></div>
                     <div>
                         <h4>{{ recipe.title }}</h4>
-                        <p>{{ recipes.chef_name }}</p>
+                        <p>{{ recipe.chef_name }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -19,6 +19,3 @@
     </div>
 
 {%endblock content%}
-{%block script%}
-    <script src="/scripts.js"></script>
-{%endblock script%}

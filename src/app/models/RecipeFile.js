@@ -19,12 +19,22 @@ module.exports = {
 
     all(){
         return db.query(`
-            SELECT * FROM recipes,
-            (SELECT files.*
-            from recipe_files
-            INNER JOIN files on files.id_file = recipe_files.file_id
-            INNER JOIN recipes on recipes.id_recipe = recipe_files.recipe_id
-            WHERE recipe_files.recipe_id= recipes.id_recipe LIMIT 1) AS file   
+            SELECT files.*, recipes.*,
+            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
+            FROM recipe_files
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)   
+        `)
+    },
+
+    findBy(filter){
+        return db.query(`
+            SELECT files.*, recipes.*,
+            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
+            FROM recipe_files
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)
+            WHERE recipes.title ILIKE '%${filter}%' 
         `)
     },
 
@@ -53,8 +63,10 @@ module.exports = {
 
     findFile(id){
         return db.query(`
-            SELECT files.* FROM recipe_files
+            SELECT files.* 
+            FROM recipe_files
             LEFT JOIN files ON files.id_file = recipe_files.file_id
+            LEFT JOIN recipes ON recipes.id_recipe = recipe_files.recipe_id
             WHERE recipe_files.recipe_id = $1
             GROUP BY recipes.id_recipe,
                 files.id_file

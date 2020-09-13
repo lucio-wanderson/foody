@@ -1,8 +1,7 @@
 const currentPage = location.pathname
 const menuItems = document.querySelectorAll(".header_menu a")
-console.log(menuItems)
 
-for(item of menuItems){
+for(let item of menuItems){
     if(currentPage.includes(item.getAttribute("href"))){
         item.classList.add("active")
     }

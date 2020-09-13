@@ -35,7 +35,12 @@ module.exports = {
     },
 
     find(id){
-        return db.query(`SELECT * FROM recipes WHERE id_recipe = $1 `, [id])
+        return db.query(`
+        SELECT recipes.*,
+        (SELECT chefs.name_chef FROM chefs WHERE chefs.id_chef = recipes.chef_id) As chef_name
+        FROM recipes
+        LEFT JOIN chefs ON chefs.id_chef = recipes.chef_id
+        WHERE id_recipe = $1`, [id])
     },
 
     findChefRecipe(chef_id){
@@ -56,11 +61,13 @@ module.exports = {
     },
 
     findBy(filter){
-        return db.query(`SELECT recipes.*, count(recipes) AS total_recipes
-            FROM recipes
-            WHERE recipes.title ILIKE '%${filter}%'
-            GROUP BY recipes.id
-            ORDER BY total_recipes DESC`)
+        return db.query(`
+            SELECT files.*, recipes.*,
+            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
+            FROM recipe_files
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)
+            WHERE recipes.title ILIKE '%${filter}$%' `)
     },
 
     update(data){
@@ -80,7 +87,7 @@ module.exports = {
             data.preparation,
             data.information,
             data.chef,
-            data.id
+            data.id_recipe
         ]
 
         return db.query(query, values)

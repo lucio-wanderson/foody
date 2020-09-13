@@ -1,44 +1,101 @@
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
+const RecipeFile = require("../models/RecipeFile")
 
 module.exports = {
     async home(req, res){
-        const results = await Recipe.all()
-        const recipes = results.rows
-        return res.render("index", { recipes })
+        let results = await RecipeFile.all()
+        
+        let recipes = results.rows.map(result => ({
+            ...result,
+            src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+        }))
+
+        let filteredRecipes = []
+        let recipeIds = []
+
+        for(recipe of recipes){
+            recipeIds.push(recipe.id_recipe)
+        }
+        recipeIds = [...new Set(recipeIds)]
+
+        for(let counter = 0; counter < recipeIds.length; counter ++){
+            if(recipeIds.includes(recipes[counter].id_recipe)){
+                filteredRecipes.push(recipes[counter])
+            }
+        }
+        
+        return res.render("index", { recipes: filteredRecipes })
     },  
 
     async index(req, res) {
         const { filter } = req.query
 
         if (filter) {
-            const results = await Recipe.findBy(filter)
-            const recipes = results.rows
+            const results = await RecipeFile.findBy(filter)
 
-            return res.render("recipes", { recipes })
+            if(results.rows.length >= 0) return res.send('Registro não encontrado')
+
+            let recipes = results.rows.map(result => ({
+                ...result,
+                src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+            }))
+
+            let filteredRecipes = []
+            let recipeIds = []
+
+            for(recipe of recipes){
+                recipeIds.push(recipe.id_recipe)
+            }
+            recipeIds = [...new Set(recipeIds)]
+
+            for(let counter = 0; counter < recipeIds.length; counter ++){
+                if(recipeIds.includes(recipes[counter].id_recipe)){
+                    filteredRecipes.push(recipes[counter])
+                }
+            }
+
+            return res.render("recipes", { recipes: filteredRecipes })
 
         } else {
-            const results = await Recipe.all()
-            const recipe = results.rows
+            let results = await RecipeFile.all()
+            
+            let recipes = results.rows.map(result => ({
+                ...result,
+                src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+            }))
 
-            return res.render("recipes", { recipe })
+            let filteredRecipes = []
+            let recipeIds = []
+
+            for(recipe of recipes){
+                recipeIds.push(recipe.id_recipe)
+            }
+            recipeIds = [...new Set(recipeIds)]
+
+            for(let counter = 0; counter < recipeIds.length; counter ++){
+                if(recipeIds.includes(recipes[counter].id_recipe)){
+                    filteredRecipes.push(recipes[counter])
+                }
+            }
+
+            return res.render("recipes", { recipes: filteredRecipes })
         }
     },
 
     async show(req, res) {
-        await Recipe.find(req.params.id, function (recipe) {
-            if (!recipe) return res.send("Receita não encontrado")
+        let results = await Recipe.find(req.params.id)
+        const recipe = results.rows[0]
+        if(!recipe) return res.send("Sem receita")
 
-            recipe.ingredients = recipe.ingredients.split(',')
-            recipe.preparation = recipe.preparation.split(',')
-
-            Chef.find(recipe.chef_id, function (chef) {
-                return res.render(`show`, { recipe, chef })
-            })
-
-        })
+        results = await RecipeFile.findFile(recipe.id_recipe)
+        let files = results.rows.map(result => ({
+            ...result,
+            src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+        }))
         
-
+        file = files[0]
+            return res.render(`show`, { recipe, files, file })
     },
 
     about(req, res) {
@@ -46,9 +103,12 @@ module.exports = {
     },
 
     async chef(req, res) {
-        const results = await Chef.all()
-        const chefs = results.rows
-
+        let results = await Chef.all()
+        let chefs = results.rows.map(result => ({
+            ...result,
+            src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
+        }))
+        
         return res.render("chefs", { chefs })
     }
 }
