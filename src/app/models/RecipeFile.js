@@ -23,7 +23,8 @@ module.exports = {
             (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
             FROM recipe_files
             LEFT JOIN files ON (files.id_file = recipe_files.file_id)
-            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)   
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)  
+            ORDER BY recipes.created_at desc 
         `)
     },
 
@@ -34,7 +35,8 @@ module.exports = {
             FROM recipe_files
             LEFT JOIN files ON (files.id_file = recipe_files.file_id)
             LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)
-            WHERE recipes.title ILIKE '%${filter}%' 
+            WHERE recipes.title ilike '%${filter}%'
+            ORDER BY recipes.updated_at OR recipes.created_at
         `)
     },
 

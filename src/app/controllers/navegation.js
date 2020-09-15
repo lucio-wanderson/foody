@@ -1,6 +1,7 @@
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
 const RecipeFile = require("../models/RecipeFile")
+const {date} = require("../../lib/utils")
 
 module.exports = {
     async home(req, res){
@@ -34,7 +35,7 @@ module.exports = {
         if (filter) {
             const results = await RecipeFile.findBy(filter)
 
-            if(results.rows.length >= 0) return res.send('Registro não encontrado')
+            if(!results) return res.send('Registro não encontrado')
 
             let recipes = results.rows.map(result => ({
                 ...result,
@@ -54,6 +55,14 @@ module.exports = {
                     filteredRecipes.push(recipes[counter])
                 }
             }
+
+            console.log(date(filteredRecipes[3].created_at))
+
+            let recipeDatePromise = filteredRecipes.map(recipe => {
+                date(recipe.created_at).format
+            })
+
+            let recipeDateResult = await Promise.all(recipeDatePromise)
 
             return res.render("recipes", { recipes: filteredRecipes })
 
