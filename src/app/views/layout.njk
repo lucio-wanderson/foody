@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
 
         {%block head%}
             <title>Foodfy</title>
@@ -27,6 +27,7 @@
                                 <a href="/sobre">Sobre</a>
                                 <a href="/receitas">Receitas</a>
                                 <a href="/chefs">Chefs</a>
+                                <a href="/users/login">Entrar</a>
                             </div>
 
                             <form class="form_search" action="/receitas" method="GET">
@@ -38,7 +39,8 @@
                     </header>
                 {%endblock header%}
 
-                {%block content%}{%endblock content%}
+                {%block content%}
+                {%endblock content%}
             </div>
 
             <div class="footer">

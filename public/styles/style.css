@@ -427,8 +427,8 @@ header .header_menu a:hover{
     color: white;
 }
 
-header .header_menu a.active{
-    color: white;
+.header_card a.active{
+    font-weight: bold;
 }
 
 main{
