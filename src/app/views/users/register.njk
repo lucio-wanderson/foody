@@ -1,0 +1,22 @@
+{%extends "admin/layout.njk"%}
+
+{%block content%}
+    <section class="user-register form">
+
+        <form action="/users/register" method="POST">
+
+            <div class="header">
+                <h3>Novo usuário</h3>
+            </div>
+
+            <div class="fields-user">
+                {%include "users/fields.njk"%}
+            </div>
+
+            <button class="button create-user" type="submit">Salvar</button>
+            <button class="button cancel">Cancelar</button>
+
+        </form>
+
+    </section>
+    {%endblock%}

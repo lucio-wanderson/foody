@@ -27,6 +27,17 @@ CREATE TABLE "recipe_files" (
   "file_id" int
 );
 
+CREATE TABLE "users"(
+  "id" SERIAL PRIMARY KEY,
+  "name" TEXT NOT NULL,
+  "email" TEXT UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "reset_token" TEXT,
+  "reset_token_expires" TEXT,
+  "is_admin" BOOLEAN DEFAULT false,
+  "created_at" TIMESTAMP DEFAULT(now()),
+  "updated_at" TIMESTAMP DEFAULT(now())
+);
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id_file") ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE "recipes" ADD FOREIGN KEY ("chef_id") REFERENCES "chefs" ("id_chef") ;

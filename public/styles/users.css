@@ -1,0 +1,108 @@
+.content-page-users{
+    width: 500px;
+     margin: auto;
+}
+
+.users{
+    position: relative;
+    box-sizing: border-box;
+    height: 500px;
+}
+
+.header-users{
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.header-users img{
+    padding: 32px;
+    margin-top: 32px;
+    margin-bottom: 56px;;
+}
+
+.user{
+    width: 500px;
+    font-weight: bold;
+}
+
+.user input{
+    width: 100%;
+}
+
+.user-footer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.user-footer a{
+    color: #969696;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 200ms;
+}
+
+.user-footer a:hover{
+    color: #333;
+}
+
+.user-footer button{
+    color:white;
+    font-weight: bold;
+    background-color: #6558C3;
+    height: 34px;
+    width: 140px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: 200ms;
+}
+
+.user-footer button:hover{
+    background-color: #4b3496;
+}
+/*USERS*/
+
+.user-create{
+    width: 400px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.user-create input{
+    width: 460px;
+}
+
+.user-create span{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.fields-user{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.fields-user input[type="checkbox"]{
+    color: #DDDDDD;
+    border-radius: 2px;
+    width: 12px;
+    margin-top: 16px;
+    padding-right: 12px;    
+}
+
+.cancel{
+    background-color: #8a8a8a;
+}
+
+.create-user{
+    right: 380px;
+}

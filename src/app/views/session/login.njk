@@ -16,22 +16,31 @@
     <body>
         
         <div class="all">
-            <div class="content-page">
+            <div class="content-page-users">
 
                 {%block header%}
                     <header>
-                        {%include "parts/header.njk"%}
+                        <div class="header-users">
+                            <a href="/"><img src="/images/logo.png" alt="Logo"></a>
+                            <h2>Iniciar seção</h2>
+                        </div>
+
+
                     </header>
                 {%endblock header%}
 
                 {%block content%}
 
+                {%include "session/fields.njk"%}
+
+                <div class="user-footer">
+                    <a href=""> Perdeu a senha </a>
+
+                    <button type="submit">Acessar</button>
+                </div>
+
                 {%endblock content%}
 
-            </div>
-
-            <div class="footer">
-                <p>Todos os direitos reservados, receitas Foodfy</p>
             </div>
 
         </div>

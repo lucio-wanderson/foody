@@ -1,11 +1,35 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<div class="item-form user-create">
+    <div>Nome</div>
+    <div>
+        <input type="text"
+            name="name"
+            placeholder="Digite seu nome">
+    </div>
+</div>
+
+<div class="item-form user-create">
+    <div>Email</div>
+    <div>
+        <input type="text"
+            name="email"
+            placeholder="Digite seu email">
+    </div>
+</div>
+
+<div class="item-form user-create">
+    <span><input type="checkbox" name="admin">Administrador</span>
+</div>
+
+<!--<div class="item-form user">
+    <div>Senha</div>
+    <div class="input">
+        <input type="password" 
+            name="password" 
+            {%if not user.id%}
+            placeholder="Digite uma senha forte" 
+            {%else%}
+            placeholder="Digite sua senha para atualizar o cadastro"
+            {%endif%}>
+
+    </div>
+</div>-->

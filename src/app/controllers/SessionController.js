@@ -1,5 +1,5 @@
 module.exports = {
     loginForm(req, res){
-        return res.send("ok")
+        return res.render('session/login.njk')
     }
 }

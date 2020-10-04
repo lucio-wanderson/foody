@@ -4,6 +4,7 @@ const multer = require('../app/middlewares/multer')
 const navegation = require("../app/controllers/navegation")
 const admin = require("../app/controllers/admin")
 const users = require('./users')
+// const adm = require('./admin')
 
 //NAVEGATION routes
 routes.get("/", navegation.home)
@@ -23,6 +24,7 @@ routes.delete("/admin/recipes", admin.delete)
 
 //user routes
 routes.use('/users', users)
+// routes.use('/adm',adm)
 
 //ADMIN  chefs routes
 routes.get("/admin/chefs", admin.chefIndex)

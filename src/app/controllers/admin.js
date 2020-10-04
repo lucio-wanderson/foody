@@ -26,14 +26,14 @@ module.exports = {
             }
         }
 
-        return res.render("admin/recipes/index", {recipes: filteredRecipes})
+        return res.render("recipes/index", {recipes: filteredRecipes})
     },
 
     async create(req, res) {
         let results = await Recipe.chefSelectOptions()
         const options = results.rows
 
-        return res.render("admin/recipes/create", { chefOptions: options })
+        return res.render("recipes/create", { chefOptions: options })
     },
 
     async post(req, res) {
@@ -81,7 +81,7 @@ module.exports = {
         
         file = files[0]
         
-        return res.render(`admin/recipes/show`, {recipe, files, file})
+        return res.render(`recipes/show`, {recipe, files, file})
     },
 
     async edit(req, res) {
@@ -99,7 +99,7 @@ module.exports = {
             src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
         }))
 
-        return res.render(`admin/recipes/edit`, {recipe, chefOptions, files})
+        return res.render(`recipes/edit`, {recipe, chefOptions, files})
 
     },
 
@@ -176,11 +176,11 @@ module.exports = {
             src: `${req.protocol}://${req.headers.host}${result.path.replace("public", "")}`
         }))
 
-        return res.render("admin/chefs/index", { chefs })
+        return res.render("chefs/index", { chefs })
     },
 
     chefCreate(req, res) {
-        return res.render("admin/chefs/create")
+        return res.render("chefs/create")
     },
 
     async chefPost(req, res) {
@@ -221,14 +221,14 @@ module.exports = {
         results = await Recipe.findChefRecipe(chef.id_chef)
         const recipes = results.rows
 
-        return res.render(`admin/chefs/show`, {chef, recipes})
+        return res.render(`chefs/show`, {chef, recipes})
     },
 
     async chefEdit(req, res) {
         const results = await Chef.find(req.params.id)
         const chef = results.rows[0]
 
-        return res.render("admin/chefs/edit", {chef})
+        return res.render("chefs/edit", {chef})
     },
 
     async chefUpdate(req, res) {
@@ -264,6 +264,6 @@ module.exports = {
     async chefDelete(req, res){
         await File.delete(req.body.file_id)
 
-        return res.render("admin/chefs")
+        return res.render("chefs")
     }
 }
