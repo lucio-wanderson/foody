@@ -1,0 +1,53 @@
+{%extends "admin/parts/layout.njk"%}
+
+{%block content%}
+    <section class="user-dashboard container form">
+
+        <form action="/users?_method=PUT" method="POST" >
+
+            <div class="header">
+                <h3>Detalhes</h3>
+            </div>
+
+            <div class="item-form user-create">
+    <div>Nome</div>
+    <div>
+        <input type="text"
+            name="name"
+            value="{{user.name}}"
+            placeholder="Digite seu nome">
+    </div>
+</div>
+
+<div class="item-form user-create">
+    <div>Email</div>
+    <div>
+        <input type="text"
+            name="email"
+            placeholder="Digite seu email"
+            value="{{user.email}}"
+            onblur="Validate.apply(this, 'isEmail')">
+    </div>
+</div>
+
+            <button class="button edit" type="submit">Salvar</button>
+
+        </form>
+
+        <form id="form-delete" action="users?_method=DELETE" method="POST">
+            <input type="hidden" name="id" value="{{user.id}}">
+            <button type="submit" class="button delete">Deletar</button>
+        </form>
+
+    </section>
+
+    <script>
+        const formDelete = document.querySelector("#form-delete")
+
+        formDelete.addEventListener("submit", function(event){
+            const confirmation = window.confirm("Deseja Deletar?")
+
+            if(!confirmation) event.preventDefault()
+        })
+    </script>
+    {%endblock%}

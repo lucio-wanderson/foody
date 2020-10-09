@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {%block head%}
+            <title>Foodfy</title>
+        {%endblock head%}
+
+        {%include "parts/styles.njk"%}
+        
+    </head>
+
+    <body>
+        
+        <div class="all">
+            <div class="content-page-users">
+
+                {%block header%}
+                    <header>
+                        <div class="header-users">
+                            <a href="/"><img src="/images/logo.png" alt="Logo"></a>
+                        </div>
+
+
+                    </header>
+
+                {%include "parts/messages.njk"%}
+
+                {%endblock header%}
+
+
+                {%block content%}
+
+                {%endblock content%}
+
+            </div>
+
+        </div>
+
+        {%block script%}
+            <script src="/scripts/scripts.js"></script>
+        {%endblock script%}
+
+    </body>
+
+</html>

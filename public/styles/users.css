@@ -19,7 +19,12 @@
 .header-users img{
     padding: 32px;
     margin-top: 32px;
-    margin-bottom: 56px;;
+    margin-bottom: 48px;;
+}
+
+.content-page-users h2{
+    margin-bottom: 16px;
+    margin-left: 37%;
 }
 
 .user{
@@ -32,6 +37,7 @@
 }
 
 .user-footer{
+    position: relative;
     display: flex;
     justify-content: space-between;
     margin-bottom: 0;
@@ -63,11 +69,13 @@
     border-radius: 4px;
     box-sizing: border-box;
     transition: 200ms;
+    position: initial;
 }
 
 .user-footer button:hover{
     background-color: #4b3496;
 }
+
 /*USERS*/
 
 .user-create{

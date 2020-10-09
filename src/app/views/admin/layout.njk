@@ -32,14 +32,17 @@
                 <div></div>
                 
                 <div class="exit">
-                    <a href="/">SAIR</a>
+                    <form action="/users/logout" method="POST">
+                        <a href="/">SAIR</a>
+                    </form>
                 </div>
             </div>
 
         </header>
 
         <main>
-            {%block content%}{%endblock content%}
+            {%block content%}
+            {%endblock content%}
         </main>
 
         {%block script%}

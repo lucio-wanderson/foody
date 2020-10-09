@@ -2,6 +2,7 @@ const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
 const RecipeFile = require("../models/RecipeFile")
 const {date} = require("../../lib/utils")
+const db = require("../../config/db")
 
 module.exports = {
     async home(req, res){

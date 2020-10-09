@@ -1,6 +1,17 @@
 const db = require('../../config/db')
 
 module.exports = {
+    all(){
+        return db.query(`
+            SELECT files.*, recipes.*,
+            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
+            FROM recipe_files
+            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
+            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)  
+            ORDER BY recipes.created_at desc 
+        `)
+    },
+
     create(recipe_id, file_id){
         const query = `
             INSERT INTO recipe_files(
@@ -15,17 +26,6 @@ module.exports = {
         ]
 
         return db.query(query, values)
-    },
-
-    all(){
-        return db.query(`
-            SELECT files.*, recipes.*,
-            (SELECT chefs.name_chef AS chef_name FROM chefs WHERE chefs.id_chef = recipes.chef_id)
-            FROM recipe_files
-            LEFT JOIN files ON (files.id_file = recipe_files.file_id)
-            LEFT JOIN recipes ON (recipes.id_recipe = recipe_files.recipe_id)  
-            ORDER BY recipes.created_at desc 
-        `)
     },
 
     findBy(filter){

@@ -3,6 +3,7 @@
     <div>
         <input type="text"
             name="name"
+            value="{{user.name}}"
             placeholder="Digite seu nome">
     </div>
 </div>
@@ -12,7 +13,9 @@
     <div>
         <input type="text"
             name="email"
-            placeholder="Digite seu email">
+            placeholder="Digite seu email"
+            value="{{user.email}}"
+            onblur="Validate.apply(this, 'isEmail')">
     </div>
 </div>
 

@@ -11,6 +11,8 @@ html, body{
 }
 body{
     position: relative;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .all{
@@ -47,7 +49,6 @@ h4{
 .content-page{
     height: 100%;
     width: 1000px;
-    font-family: 'Roboto', sans-serif;
     color: #111111;
     margin: auto;
     padding-bottom: 32px;

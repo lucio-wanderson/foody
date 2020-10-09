@@ -1,6 +1,20 @@
 const db = require('../../config/db')
+const {hash} = require('bcryptjs')
 
 module.exports = {
+    async findBy(email){
+        let user = await db.query(`
+            SELECT * FROM users 
+            WHERE email = $1 
+        `, [email])
+    },
+
+    all(){
+        return db.query(`
+            SELECT * FROM users
+        `)
+    },
+
     create(data){
         const query = `INSERT INTO users(
             name,
