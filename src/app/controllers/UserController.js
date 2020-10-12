@@ -17,28 +17,27 @@ module.exports = {
     },
 
     async post(req, res){
-       
         let results = await User.create(req.body) 
         const user = results.rows
 
         return res.redirect("/users", user)
     },
 
-    async update(req, res){
-        try{
-            let {name, email} = req.body
+    // async update(req, res){
+    //     try{
+    //         let {name, email} = req.body
 
-            await User.update(user.id, {
-                name, 
-                email
-            })
+    //         await User.update(user.id, {
+    //             name, 
+    //             email
+    //         })
 
-            return res.render("/users")
-        }catch(err){
-            console.error(err)
-            return res.render("users/index", {
-                error: "Algum erro ocorreu"
-            })
-        }
-    }
+    //         return res.render("/users")
+    //     }catch(err){
+    //         console.error(err)
+    //         return res.render("users/index", {
+    //             error: "Algum erro ocorreu"
+    //         })
+    //     }
+    // }
 }

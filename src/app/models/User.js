@@ -3,10 +3,11 @@ const {hash} = require('bcryptjs')
 
 module.exports = {
     async findBy(email){
-        let user = await db.query(`
-            SELECT * FROM users 
-            WHERE email = $1 
-        `, [email])
+        let query = `SELECT * FROM users WHERE email = '${email}' `
+
+        const results = await db.query(query)
+
+        return results.rows[0]
     },
 
     all(){
@@ -29,5 +30,27 @@ module.exports = {
         ]
 
         return db.query(query, values)
+    },
+
+    async update(id, fields){
+        let query = "UPDATE users SET"
+
+        Object.keys(fields).map((key, index, array) =>{
+            if((index + 1) < array.length){
+                query = `
+                    ${query}
+                    ${key} = '${fields[key]}', 
+                `
+            }else{
+                //last iteration
+                query = `
+                    ${query}
+                    ${key} = '${fields[key]}' 
+                    WHERE id = ${id}
+                `
+            }
+        })
+
+        await db.query(query)
     }
 }
